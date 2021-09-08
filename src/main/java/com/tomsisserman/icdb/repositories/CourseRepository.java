@@ -8,5 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface CourseRepository extends PagingAndSortingRepository<Course, Integer> {
 
+
+    /**
+     * Find Courses associated with the Course Topic.
+     * @param code - Course Topic code
+     * @param pageable
+     * @return
+     */
     Page<Course> findByCourseTopicCode(@Param("code") String code, Pageable pageable);
 }

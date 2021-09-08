@@ -41,6 +41,9 @@ public class IcdbApplication implements CommandLineRunner {
         createCourses(importFile);
     }
 
+    /**
+     * Initialize the courses topics.
+     */
     private void createAllCoursesTopics(){
         courseTopicService.createCourseTopic("SPG", "Spring");
         courseTopicService.createCourseTopic("OOP", "OOP");
@@ -49,6 +52,12 @@ public class IcdbApplication implements CommandLineRunner {
         courseTopicService.createCourseTopic("K8S", "Kubernetes");
     }
 
+    /**
+     * Create course entities from external file.
+     *
+     * @param fileToImport
+     * @throws IOException
+     */
     private void createCourses(String fileToImport) throws IOException {
         CourseFromFile.read(fileToImport).forEach(importedCourse ->
                 courseService.createCourse(importedCourse.getTitle(),

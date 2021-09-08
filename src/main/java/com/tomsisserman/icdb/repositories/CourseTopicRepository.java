@@ -9,5 +9,11 @@ import java.util.Optional;
 @RepositoryRestResource(collectionResourceRel = "topics", path = "topics")
 public interface CourseTopicRepository extends CrudRepository<CourseTopic, String> {
 
+    /**
+     * Find Course Topic by Name
+     *
+     * @param name - name of the topic.
+     * @return
+     */
     Optional<CourseTopic> findByName(String name);
 }
