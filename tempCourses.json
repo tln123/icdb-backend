@@ -1,0 +1,62 @@
+[
+  {
+    "courseTopic": "Spring",
+    "title": "Spring Framework 5: Beginner to Guru",
+    "description": "Spring Framework 5: Learn Spring Framework 5, Spring Boot 2, Spring MVC, Spring Data JPA, Spring Data MongoDB, Hibernate",
+    "durationInHours": "58",
+    "price": "700",
+    "lecturer": "John Thompson",
+    "difficulty": "Medium",
+    "platform": "Udemy"
+  },
+  {
+    "courseTopic": "Spring",
+    "title": "Spring & Hibernate for Beginners (includes Spring Boot)",
+    "description": "Spring 5: Learn Spring 5 Core, AOP, Spring MVC, Spring Security, Spring REST, Spring Boot 2, Thymeleaf, JPA & Hibernate",
+    "durationInHours": "42",
+    "price": "700",
+    "lecturer": "Chad Darby",
+    "difficulty": "Medium",
+    "platform": "Udemy"
+  },
+  {
+    "courseTopic": "Kubernetes",
+    "title": "Kubernetes for Beginners: Google Cloud, AWS & Azure",
+    "description": "Kubernetes for Beginners - with Spring Boot Java Microservices - Play with GKE, AWS EKS & Azure AKS",
+    "durationInHours": "13",
+    "price": "350",
+    "lecturer": "In28Minutes",
+    "difficulty": "Hard",
+    "platform": "Udemy"
+  },
+  {
+    "courseTopic": "Design Patterns",
+    "title": "Design Patterns",
+    "description": "This course extends object-oriented analysis and design by incorporating design patterns to create interactive applications. Through a survey of established design patterns, you will gain a foundation for more complex software applications. Finally, you will identify problematic software designs by referencing a catalog of code smells.",
+    "durationInHours": "15",
+    "price": "500",
+    "lecturer": "Kenny Wong",
+    "difficulty": "Medium",
+    "platform": "Coursera"
+  },
+  {
+    "courseTopic": "OOP",
+    "title": "Object-Oriented Design",
+    "description": "This course takes Java beginners to the next level by covering object-oriented analysis and design. You will discover how to create modular, flexible, and reusable software, by applying object-oriented design principles and guidelines. And, you will be able to communicate these designs in a visual notation known as Unified Modelling Language (UML).",
+    "durationInHours": "17",
+    "price": "500",
+    "lecturer": "Kenny Wong",
+    "difficulty": "Easy",
+    "platform": "Coursera"
+  },
+  {
+    "courseTopic": "Spring Testing",
+    "title": "Spring: Test-Driven Development with JUnit",
+    "description": "Create integration test datasets",
+    "durationInHours": "3",
+    "price": "200",
+    "lecturer": "Shonna Smith",
+    "difficulty": "Easy",
+    "platform": "LinkedIn"
+  }
+]
