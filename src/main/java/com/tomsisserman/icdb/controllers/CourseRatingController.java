@@ -29,7 +29,7 @@ public class CourseRatingController {
         this.courseRepository = courseRepository;
     }
 
-    protected CourseRatingController() {
+    public CourseRatingController() {
 
     }
 
@@ -37,7 +37,7 @@ public class CourseRatingController {
      * Create a Course Rating.
      *
      * @param courseId - course identifier.
-     * @param ratingDto - rating data tranfer object.
+     * @param ratingDto - rating data transfer object.
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

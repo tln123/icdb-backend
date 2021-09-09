@@ -2,8 +2,10 @@ package com.tomsisserman.icdb.entities;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.util.Objects;
 
+@Entity
 public class CourseRating {
 
     @EmbeddedId
