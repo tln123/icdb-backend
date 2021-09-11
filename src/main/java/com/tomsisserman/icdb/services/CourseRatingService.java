@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
@@ -36,12 +37,33 @@ public class CourseRatingService {
      * Create a new Course Rating in the DB.
      *
      * @param courseId - course identifier.
-     * @param ratingDto - rating Data Transfer Object.
+     * @param customerId customer identifier
+     * @param score score of the course rating
+     * @param comment additional comment
+     *
+     * @throws NoSuchElementException if no Course found.
      */
-    public void createNew(int courseId, RatingDto ratingDto) {
-        Course course = verifyCourse(courseId);
-        courseRatingRepository.save(new CourseRating(new CourseRatingPk(course, ratingDto.getCustomerId()),
-                ratingDto.getScore(), ratingDto.getComment()));
+    public void createNew(int courseId, Integer customerId, Integer score, String comment) throws NoSuchElementException {
+        courseRatingRepository.save(new CourseRating(verifyCourse(courseId), customerId, score, comment));
+    }
+
+    /**
+     * Get a ratings by id.
+     *
+     * @param id rating identifier
+     * @return TourRatings
+     */
+    public Optional<CourseRating> lookupRatingById(int id)  {
+        return courseRatingRepository.findById(id);
+    }
+
+    /**
+     * Get All Ratings.
+     *
+     * @return List of TourRatings
+     */
+    public List<CourseRating> lookupAll()  {
+        return courseRatingRepository.findAll();
     }
 
     /**
@@ -56,7 +78,7 @@ public class CourseRatingService {
      */
     public Page<RatingDto> getRatings(int courseId, Pageable pageable) throws NoSuchElementException {
         verifyCourse(courseId);
-        Page<CourseRating> ratings = courseRatingRepository.findByPkCourseId(courseId, pageable);
+        Page<CourseRating> ratings = courseRatingRepository.findByCourseId(courseId, pageable);
         return new PageImpl<>(
                 ratings.get().map(RatingDto::new).collect(Collectors.toList()),
                 pageable,
@@ -74,7 +96,7 @@ public class CourseRatingService {
      * @throws NoSuchElementException if Course doesn't exist.
      */
     public Double getAverageScore(int courseId) throws NoSuchElementException {
-        List<CourseRating> ratings = courseRatingRepository.findByPkCourseId(verifyCourse(courseId).getId());
+        List<CourseRating> ratings = courseRatingRepository.findByCourseId(verifyCourse(courseId).getId());
         OptionalDouble average = ratings.stream().mapToInt((rating) -> rating.getScore()).average();
         return average.isPresent() ? average.getAsDouble() : null;
     }
@@ -83,16 +105,41 @@ public class CourseRatingService {
      * Update the elements of a Course ratings.
      *
      * @param courseId - course identifier.
-     * @param ratingDto - rating Data Transfer Object.
+     * @param score score of the tour rating
+     * @param comment additional comment
      *
      * @return Rating Data Transfer Object.
      * @throws NoSuchElementException if no Course found.
      */
-    public RatingDto update(int courseId, RatingDto ratingDto) throws NoSuchElementException {
-        CourseRating rating = verifyCourseRating(courseId, ratingDto.getCustomerId());
-        rating.setScore(ratingDto.getScore());
-        rating.setComment(ratingDto.getComment());
+    public RatingDto update(int courseId, Integer customerId, Integer score, String comment) throws NoSuchElementException {
+        CourseRating rating = verifyCourseRating(courseId, customerId);
+        rating.setScore(score);
+        rating.setComment(comment);
         return new RatingDto(courseRatingRepository.save(rating));
+    }
+
+    /**
+     * Update all of the elements of a Tour Rating.
+     *
+     * @param courseId course identifier
+     * @param customerId customer identifier
+     * @param score score of the course rating
+     * @param comment additional comment
+     *
+     * @return courseRating
+     *
+     * @throws NoSuchElementException if no Course found.
+     */
+    public CourseRating updateSome(int courseId, Integer customerId, Integer score, String comment)
+            throws NoSuchElementException {
+        CourseRating rating = verifyCourseRating(courseId, customerId);
+        if (score != null) {
+            rating.setScore(score);
+        }
+        if (comment!= null) {
+            rating.setComment(comment);
+        }
+        return courseRatingRepository.save(rating);
     }
 
     /**
@@ -116,8 +163,8 @@ public class CourseRatingService {
      * @return the found CourseRating.
      * @throws NoSuchElementException if no CourseRating found.
      */
-    private CourseRating verifyCourseRating(int courseId, int customerId) throws NoSuchElementException {
-        return courseRatingRepository.findByPkCourseIdAndPkCustomerId(courseId, customerId).orElseThrow(() ->
+    public CourseRating verifyCourseRating(int courseId, int customerId) throws NoSuchElementException {
+        return courseRatingRepository.findByCourseIdAndCustomerId(courseId, customerId).orElseThrow(() ->
                 new NoSuchElementException("Course-Rating pair with course id " + courseId +
                         " and customer id " + customerId + " doesnt exists"));
     }

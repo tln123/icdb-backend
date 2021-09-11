@@ -1,23 +1,16 @@
 package com.tomsisserman.icdb.controllers;
 
-import com.tomsisserman.icdb.entities.Course;
-import com.tomsisserman.icdb.entities.CourseRating;
-import com.tomsisserman.icdb.entities.CourseRatingPk;
-import com.tomsisserman.icdb.repositories.CourseRatingRepository;
-import com.tomsisserman.icdb.repositories.CourseRepository;
+
 import com.tomsisserman.icdb.services.CourseRatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.AbstractMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/courses/{courseId}/ratings")
@@ -42,7 +35,7 @@ public class CourseRatingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createCourseRating(@PathVariable(value = "courseId") int courseId, @RequestBody @Validated RatingDto ratingDto) {
-        courseRatingService.createNew(courseId, ratingDto);
+        courseRatingService.createNew(courseId, ratingDto.getCustomerId(), ratingDto.getScore(), ratingDto.getComment());
     }
 
     /**
@@ -81,7 +74,7 @@ public class CourseRatingController {
      */
     @PutMapping
     public RatingDto updateWithPut(@PathVariable(value = "courseId") int courseId, @RequestBody @Validated RatingDto ratingDto) {
-        return courseRatingService.update(courseId, ratingDto);
+        return courseRatingService.update(courseId, ratingDto.getCustomerId(), ratingDto.getScore(), ratingDto.getComment());
     }
 
     /**

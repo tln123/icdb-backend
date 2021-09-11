@@ -1,10 +1,11 @@
 package com.tomsisserman.icdb.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Course {
+public class Course implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -25,6 +26,7 @@ public class Course {
     private String lecturer;
 
     @ManyToOne
+    @JoinColumn
     private CourseTopic courseTopic;
 
     @Column

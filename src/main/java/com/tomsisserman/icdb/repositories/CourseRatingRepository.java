@@ -4,6 +4,7 @@ import com.tomsisserman.icdb.entities.CourseRating;
 import com.tomsisserman.icdb.entities.CourseRatingPk;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RepositoryRestResource(exported = false)
-public interface CourseRatingRepository extends CrudRepository<CourseRating, CourseRatingPk> {
+public interface CourseRatingRepository extends JpaRepository<CourseRating, Integer> {
 
     /**
      * lookup all the CourseRatings for a course;
@@ -19,7 +20,7 @@ public interface CourseRatingRepository extends CrudRepository<CourseRating, Cou
      *
      * @return a List of found CourseRatings
      */
-    List<CourseRating> findByPkCourseId(Integer courseId);
+    List<CourseRating> findByCourseId(Integer courseId);
 
     /**
      * lookup a CourseRating by the CourseId and CustomerID.
@@ -29,7 +30,7 @@ public interface CourseRatingRepository extends CrudRepository<CourseRating, Cou
      *
      * @return Optional of found CourseRatings.
      */
-    Optional<CourseRating> findByPkCourseIdAndPkCustomerId(Integer courseId, Integer customerId);
+    Optional<CourseRating> findByCourseIdAndCustomerId(Integer courseId, Integer customerId);
 
     /**
      * Fetch a PAge of CourseRatings.
@@ -39,5 +40,5 @@ public interface CourseRatingRepository extends CrudRepository<CourseRating, Cou
      *
      * @return Page of Course Ratings.
      */
-    Page<CourseRating> findByPkCourseId(Integer courseId, Pageable pageable);
+    Page<CourseRating> findByCourseId(Integer courseId, Pageable pageable);
 }

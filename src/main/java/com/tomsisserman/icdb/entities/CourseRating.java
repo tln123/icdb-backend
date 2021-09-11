@@ -1,15 +1,20 @@
 package com.tomsisserman.icdb.entities;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class CourseRating {
 
-    @EmbeddedId
-    private CourseRatingPk pk;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    private Course course;
+
+    @Column
+    private Integer customerId;
 
     @Column(nullable = false)
     private Integer score;
@@ -17,50 +22,52 @@ public class CourseRating {
     @Column
     private String comment;
 
+    protected CourseRating() {
+    }
+
     /**
      * Create a fully initialized CourseRating
      *
-     * @param pk - primary key of a course and customer id.
+     * @param course - the course.
+     * @param customerId - the customer identifier.
      * @param score - Integer score (1-5).
      * @param comment - Optional comment from the user.
      */
-    public CourseRating(CourseRatingPk pk, Integer score, String comment) {
-        this.pk = pk;
+    public CourseRating(Course course, Integer customerId, Integer score, String comment) {
+        this.course = course;
+        this.customerId = customerId;
         this.score = score;
         this.comment = comment;
     }
 
-    protected CourseRating() {
+    public CourseRating(Course course, Integer customerId, Integer score) {
+        this.course = course;
+        this.customerId = customerId;
+        this.score = score;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CourseRating that = (CourseRating) o;
-        return Objects.equals(pk, that.pk) && Objects.equals(score, that.score) && Objects.equals(comment, that.comment);
+    public Integer getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(pk, score, comment);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "CourseRating{" +
-                "pk=" + pk +
-                ", score=" + score +
-                ", comment='" + comment + '\'' +
-                '}';
+    public Course getCourse() {
+        return course;
     }
 
-    public CourseRatingPk getPk() {
-        return pk;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
-    public void setPk(CourseRatingPk pk) {
-        this.pk = pk;
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     public Integer getScore() {
@@ -77,5 +84,29 @@ public class CourseRating {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseRating that = (CourseRating) o;
+        return Objects.equals(id, that.id) && Objects.equals(course, that.course) && Objects.equals(customerId, that.customerId) && Objects.equals(score, that.score) && Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, course, customerId, score, comment);
+    }
+
+    @Override
+    public String toString() {
+        return "CourseRating{" +
+                "id=" + id +
+                ", course=" + course +
+                ", customerId=" + customerId +
+                ", score=" + score +
+                ", comment='" + comment + '\'' +
+                '}';
     }
 }

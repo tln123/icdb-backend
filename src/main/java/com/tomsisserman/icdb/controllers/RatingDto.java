@@ -41,7 +41,7 @@ public class RatingDto {
      * @param courseRating - Course Rating Object
      */
     public RatingDto(CourseRating courseRating) {
-        this(courseRating.getScore(), courseRating.getComment(), courseRating.getPk().getCustomerId());
+        this(courseRating.getScore(), courseRating.getComment(), courseRating.getCustomerId());
     }
 
     public Integer getScore() {

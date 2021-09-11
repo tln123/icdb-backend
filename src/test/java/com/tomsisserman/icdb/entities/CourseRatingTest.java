@@ -10,17 +10,17 @@ public class CourseRatingTest {
 
     @Test
     public void testConstructor() {
-        CourseRating rating = new CourseRating(new CourseRatingPk(course, 1), 1, "comment");
+        CourseRating rating = new CourseRating(course, 1, 1, "comment");
         assertEquals("comment" ,rating.getComment());
-        assertEquals( course, rating.getPk().getCourse());
+        assertEquals( course, rating.getCourse());
         assertEquals(1, rating.getScore());
-        assertEquals(1, rating.getPk().getCustomerId());
+        assertEquals(1, rating.getCustomerId());
     }
 
     @Test
     public void equalsHashcodeVerify(){
-        CourseRating rating1 = new CourseRating(new CourseRatingPk(course, 1), 1, "comment");
-        CourseRating rating2 = new CourseRating(new CourseRatingPk(course, 1), 1, "comment");
+        CourseRating rating1 = new CourseRating(course, 1, 1, "comment");
+        CourseRating rating2 = new CourseRating(course, 1, 1, "comment");
 
         assertEquals(rating1, rating2);
         assertEquals(rating1.hashCode(), rating2.hashCode());
