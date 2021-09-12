@@ -3,7 +3,6 @@ package com.tomsisserman.icdb.services;
 import com.tomsisserman.icdb.controllers.RatingDto;
 import com.tomsisserman.icdb.entities.Course;
 import com.tomsisserman.icdb.entities.CourseRating;
-import com.tomsisserman.icdb.entities.CourseRatingPk;
 import com.tomsisserman.icdb.repositories.CourseRatingRepository;
 import com.tomsisserman.icdb.repositories.CourseRepository;
 import org.springframework.data.domain.Page;
