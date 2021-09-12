@@ -22,7 +22,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -51,7 +50,7 @@ class CourseRatingControllerTest {
     @Mock
     private Course courseMock;
 
-    private RatingDto ratingDto = new RatingDto(SCORE, COMMENT, CUSTOMER_ID);
+    private final RatingDto ratingDto = new RatingDto(SCORE, COMMENT, CUSTOMER_ID);
 
     @BeforeEach
     public void setupReturnValuesOfMockMethods() {
